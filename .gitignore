@@ -30,8 +30,6 @@ STM32_StdPeriph_Demo/Listings/
 # IDE / user-specific files (ignore by default)
 *.uvoptx
 *.uvguix*
-# If you prefer to ignore project file too, uncomment next line
-*.uvprojx
 
 # Editor settings
 .vscode/
