@@ -45,7 +45,7 @@ typedef struct
     uint8_t TriggerLevel;
 }Key_t;
 
-extern uint8_t Key_Flags[KEY_NUM_KEYS];
+extern volatile uint8_t Key_Flags[KEY_NUM_KEYS];
 
 void Key_Init(void);
 uint8_t Key_CheckEvent(uint8_t KeyID, uint8_t Flag);

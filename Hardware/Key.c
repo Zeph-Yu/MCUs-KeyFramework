@@ -9,7 +9,7 @@ Key_t KeyTable[] =
     {GPIOB, GPIO_Pin_15,1},
 };
 
-uint8_t Key_Flags[KEY_NUM_KEYS] = {0};//按键事件标志数组
+volatile uint8_t Key_Flags[KEY_NUM_KEYS] = {0};//按键事件标志数组
 
 void Key_Init(void)
 {
