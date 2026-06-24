@@ -1,0 +1,39 @@
+# Keil/ARM build outputs
+Objects/
+Listings/
+Start/
+
+# Binary / firmware
+*.axf
+
+# Intermediate and compiler-generated files
+*.lnp
+*.crf
+*.d
+*.o
+*.obj
+*.map
+
+# Linker / scatter scripts (generated)
+*.sct
+
+# Listings, logs and reports
+*.lst
+*.htm
+*build_log.htm
+
+# Backup and temporary files
+*.Bak
+*.bak
+*~
+*.swp
+
+# IDE / user-specific files (ignore by default)
+*.uvoptx
+*.uvguix*
+# If you prefer to ignore project file too, uncomment next line
+*.uvprojx
+
+# Editor settings
+.vscode/
+*.code-workspace
