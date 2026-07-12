@@ -1,6 +1,6 @@
 # Keil/ARM build outputs
-STM32_StdPeriph_Demo/Objects/
-STM32_StdPeriph_Demo/Listings/
+Demos/STM32_StdPeriph_Demo/Objects/
+Demos/STM32_StdPeriph_Demo/Listings/
 
 # Binary / firmware
 *.axf
