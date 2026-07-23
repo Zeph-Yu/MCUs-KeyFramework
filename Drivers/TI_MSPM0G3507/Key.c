@@ -1,4 +1,3 @@
-#include "stm32f10x.h"
 #include "Key.h"
 
 /*
@@ -8,11 +7,9 @@
  */
 Key_t KeyTable[KEY_NUM_KEYS] =
 {
-    /* Port,   Pin,          TriggerLevel */
-    { GPIOB,   GPIO_Pin_1,   0 },         // KEY1: PB1,  上拉 → 低电平有效
-    { GPIOB,   GPIO_Pin_11,  0 },         // KEY2: PB11, 上拉 → 低电平有效
-    { GPIOB,   GPIO_Pin_13,  1 },         // KEY3: PB13, 下拉 → 高电平有效
-    { GPIOB,   GPIO_Pin_15,  1 },         // KEY4: PB15, 下拉 → 高电平有效
+    /* Port,    Pins,              Iomux,            TriggerLevel */
+    { GPIOA,    KEY_PA18_PIN,      KEY_PA18_IOMUX,   1 },         // KEY1: PA18, 下拉 → 高电平有效
+    { GPIOB,    KEY_PB21_PIN,      KEY_PB21_IOMUX,   0 },         // KEY2: PB21, 上拉 → 低电平有效
 };
 
 /*===========================================================================
@@ -20,29 +17,43 @@ Key_t KeyTable[KEY_NUM_KEYS] =
  *===========================================================================*/
 void Key_Init(void)
 {
-    GPIO_InitTypeDef GPIO_InitStructure;
+    uint8_t i;
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    for (i = 0; i < KEY_NUM_KEYS; i++)
+    {
+        uint32_t resistor;
 
-    /* 上拉输入 — 对应低电平有效的按键 (KEY1, KEY2) */
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_1 | GPIO_Pin_11;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
+        if (KeyTable[i].TriggerLevel == 0)
+        {
+            /* 低电平有效 → 上拉输入 */
+            resistor = DL_GPIO_RESISTOR_PULL_UP;
+        }
+        else
+        {
+            /* 高电平有效 → 下拉输入 */
+            resistor = DL_GPIO_RESISTOR_PULL_DOWN;
+        }
 
-    /* 下拉输入 — 对应高电平有效的按键 (KEY3, KEY4) */
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPD;
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_13 | GPIO_Pin_15;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
+        DL_GPIO_initDigitalInputFeatures(
+            KeyTable[i].Iomux,
+            DL_GPIO_INVERSION_DISABLE,
+            resistor,
+            DL_GPIO_HYSTERESIS_DISABLE,
+            DL_GPIO_WAKEUP_DISABLE);
+    }
 }
 
 /*===========================================================================
  * Key_ReadKey — 读取单个按键的当前电平
+ *
+ * DL_GPIO_readPins 返回位掩码 (uint32_t)，需归一化为 0 或 1 再与
+ * TriggerLevel 比较。
  *===========================================================================*/
 static uint8_t Key_ReadKey(uint8_t KeyID)
 {
-    return (GPIO_ReadInputDataBit(KeyTable[KeyID].Port, KeyTable[KeyID].Pin)
-            == KeyTable[KeyID].TriggerLevel) ? KEY_PRESSED : KEY_UNPRESSED;
+    uint32_t pins = DL_GPIO_readPins(KeyTable[KeyID].Port, KeyTable[KeyID].Pins);
+    uint8_t  level = (pins != 0) ? 1 : 0;
+    return (level == KeyTable[KeyID].TriggerLevel) ? KEY_PRESSED : KEY_UNPRESSED;
 }
 
 /*===========================================================================
@@ -72,8 +83,8 @@ uint8_t Key_CheckEvent(uint8_t KeyID, uint8_t Flag)
  *===========================================================================*/
 void Key_Tick(void)
 {
-    static uint8_t Count;   // 扫描周期计数器 (仅此一个模块级静态变量)
-    uint8_t        i;       // 局部循环变量 (ARM Cortex-M3 栈空间充足)
+    static uint8_t Count;   // 扫描周期计数器
+    uint8_t        i;       // 局部循环变量
 
     Count++;
 

@@ -1,7 +1,7 @@
-#ifndef __KeyE_H
-#define __KeyE_H
+#ifndef KEY_H
+#define KEY_H
 
-#include "stm32f10x.h"
+#include "ti_msp_dl_config.h"
 
 /* 扫描周期 (ms) */
 #define KEY_CYCLE_TIME              20
@@ -17,11 +17,9 @@
 #define KEY_TIME_DOUBLECLICK_TIMEOUT 500    // 双击超时 (等待第二次按下)
 
 /* 按键数量与索引 */
-#define KEY_NUM_KEYS                4
-#define PB1                         0
-#define PB11                        1
-#define PB13                        2
-#define PB15                        3
+#define KEY_NUM_KEYS                2
+#define PA18                        0
+#define PB21                        1
 
 /* 按键事件标志 (可组合) */
 typedef enum
@@ -53,8 +51,9 @@ typedef enum
 typedef struct
 {
     /* ——— 硬件配置 (初始化时设定) ——— */
-    GPIO_TypeDef *Port;          // GPIO 端口
-    uint16_t      Pin;           // GPIO 引脚
+    GPIO_Regs    *Port;          // GPIO 端口
+    uint32_t      Pins;          // GPIO 引脚 (位掩码)
+    uint32_t      Iomux;         // IOMUX 索引 (用于 GPIO 初始化)
     uint8_t       TriggerLevel;  // 有效电平: 0=低电平有效, 1=高电平有效
 
     /* ——— 运行时状态 (Key_Tick 内维护) ——— */
@@ -71,8 +70,7 @@ typedef struct
 extern Key_t KeyTable[KEY_NUM_KEYS];
 
 /* API */
-void    Key_Init(void);
 uint8_t Key_CheckEvent(uint8_t KeyID, uint8_t Flag);
 void    Key_Tick(void);
 
-#endif
+#endif // KEY_H

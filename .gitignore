@@ -2,6 +2,13 @@
 Demos/STM32_StdPeriph_Demo/Objects/
 Demos/STM32_StdPeriph_Demo/Listings/
 
+# TI_MSPM0G3507_Demo: only track the specified files/folders
+Demos/TI_MSPM0G3507_Demo/*
+!Demos/TI_MSPM0G3507_Demo/Hardware/
+!Demos/TI_MSPM0G3507_Demo/Hardware/**
+!Demos/TI_MSPM0G3507_Demo/KeyDriver.c
+!Demos/TI_MSPM0G3507_Demo/KeyDriver.syscfg
+
 # Binary / firmware
 *.axf
 
