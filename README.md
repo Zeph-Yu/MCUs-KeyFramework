@@ -24,9 +24,9 @@
 当前支持：
 
 * STM32F103（标准库）
+* MSPM0G3507
 
 计划支持：
 
-* MSPM0G3507
 * STM32 HAL
 * FreeRTOS 环境
