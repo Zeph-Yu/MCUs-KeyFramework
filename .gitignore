@@ -2,12 +2,27 @@
 Demos/STM32_StdPeriph_Demo/Objects/
 Demos/STM32_StdPeriph_Demo/Listings/
 
-# TI_MSPM0G3507_Demo: only track the specified files/folders
-Demos/TI_MSPM0G3507_Demo/*
+# TI_MSPM0G3507_Demo: only track source code, block Debug/
+Demos/TI_MSPM0G3507_Demo/Debug/
+Demos/TI_MSPM0G3507_Demo/README.md
+
+# TI_MSPM0G3507_Demo: track all project files except above
+!Demos/TI_MSPM0G3507_Demo/.ccsproject
+!Demos/TI_MSPM0G3507_Demo/.clangd
+!Demos/TI_MSPM0G3507_Demo/.cproject
+!Demos/TI_MSPM0G3507_Demo/.project
+!Demos/TI_MSPM0G3507_Demo/.settings/
+!Demos/TI_MSPM0G3507_Demo/.settings/**
+!Demos/TI_MSPM0G3507_Demo/.theia/
+!Demos/TI_MSPM0G3507_Demo/.theia/**
+!Demos/TI_MSPM0G3507_Demo/.vscode/
+!Demos/TI_MSPM0G3507_Demo/.vscode/**
 !Demos/TI_MSPM0G3507_Demo/Hardware/
 !Demos/TI_MSPM0G3507_Demo/Hardware/**
 !Demos/TI_MSPM0G3507_Demo/KeyDriver.c
 !Demos/TI_MSPM0G3507_Demo/KeyDriver.syscfg
+!Demos/TI_MSPM0G3507_Demo/targetConfigs/
+!Demos/TI_MSPM0G3507_Demo/targetConfigs/**
 
 # Binary / firmware
 *.axf
