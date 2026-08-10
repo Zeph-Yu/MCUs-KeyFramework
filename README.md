@@ -25,16 +25,18 @@
 
 | 平台 | 环境 | 驱动目录 |
 |---|---|---|
-| STM32F103 | 标准库 裸机 | `Drivers/STM32F1_StdPeriph/` |
-| STM32F103 | HAL 裸机 | `Drivers/STM32F1_HAL/` |
-| STM32F103 | HAL + FreeRTOS | `Drivers/STM32F1_HAL_FreeRTOS/` |
+| STM32F1 系列 | 标准库 裸机 | `Drivers/STM32F1_StdPeriph/` |
+| STM32F1 系列 | HAL 裸机 | `Drivers/STM32F1_HAL/` |
+| STM32F1 系列 | HAL + FreeRTOS | `Drivers/STM32F1_HAL_FreeRTOS/` |
 | MSPM0G3507 | DriverLib 裸机 | `Drivers/TI_MSPM0G3507/` |
 
 ## 工程示例
 
+示例均基于 STM32F103C8T6 或 MSPM0G3507。
+
 | 目录 | 说明 |
 |---|---|
-| `Demos/STM32F1_StdPeriph_Demo/` | STM32F103 标准库 + Keil |
-| `Demos/STM32F103C8T6_HAL/` | STM32F103C8T6 HAL 裸机 + CubeIDE |
-| `Demos/STM32F103C8T6_FreeRTOS_HAL/` | STM32F103C8T6 HAL + FreeRTOS + CubeIDE |
-| `Demos/TI_MSPM0G3507_Demo/` | MSPM0G3507 + CCS Theia |
+| `Demos/STM32F1_StdPeriph_Demo/` | 标准库 裸机 + Keil |
+| `Demos/STM32F103C8T6_HAL/` | HAL 裸机 + CubeIDE |
+| `Demos/STM32F103C8T6_FreeRTOS_HAL/` | HAL + FreeRTOS + CubeIDE |
+| `Demos/TI_MSPM0G3507_Demo/` | DriverLib + CCS Theia |
