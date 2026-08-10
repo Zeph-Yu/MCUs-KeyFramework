@@ -41,3 +41,13 @@ Demos/TI_MSPM0G3507_Demo/*
 # Editor settings
 .vscode/
 *.code-workspace
+
+# Eclipse / STM32CubeIDE workspace metadata
+.metadata/
+
+# CubeIDE build outputs
+Debug/
+*.elf
+
+# CubeIDE debug config (contains absolute paths)
+*.launch
